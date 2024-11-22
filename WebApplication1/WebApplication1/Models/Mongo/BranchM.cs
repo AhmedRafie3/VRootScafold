@@ -1,7 +1,12 @@
-﻿namespace WebApplication1.Models.Mongo
+﻿using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
+
+namespace WebApplication1.Models.Mongo
 {
     public class BranchM
     {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; } // MongoDB uses string or ObjectId for IDs
         public string? Name { get; set; }
         public string? RCode { get; set; }
