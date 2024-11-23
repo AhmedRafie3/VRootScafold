@@ -1,7 +1,11 @@
-﻿namespace WebApplication1.Models.Mongo
+﻿using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
+
+namespace WebApplication1.Models.Mongo
 {
     public class EmployeeM
     {
+        [BsonId]
         public string Id { get; set; } // MongoDB prefers string or ObjectId for IDs
         public string? FirstName { get; set; }
         public string? LastName { get; set; }

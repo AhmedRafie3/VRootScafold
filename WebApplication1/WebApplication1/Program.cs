@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models;
+using WebApplication1.Models.Mongo;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,8 @@ builder.Services.AddDbContext<vRootDbContext>(options =>
         {
             mysqlOptions.MigrationsAssembly(typeof(vRootDbContext).Assembly.FullName);
         }));
+
+builder.Services.AddSingleton<MongoDbContext>();
 
 var app = builder.Build();
 

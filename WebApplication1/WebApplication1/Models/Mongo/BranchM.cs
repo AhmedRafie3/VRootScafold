@@ -1,10 +1,15 @@
-﻿namespace WebApplication1.Models.Mongo
+﻿using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
+
+namespace WebApplication1.Models.Mongo
 {
     public class BranchM
     {
-        public string Id { get; set; } // MongoDB uses string or ObjectId for IDs
+        [BsonId]
+        [BsonRepresentation(BsonType.Int32)]
+        public int _id { get; set; } // MongoDB uses string or ObjectId for IDs
         public string? Name { get; set; }
-        public string? RCode { get; set; }
+        public string? R_Code { get; set; }
         public string? Phone { get; set; }
         public string? Fax { get; set; }
         public string? Mobile { get; set; }
@@ -40,8 +45,8 @@
         public List<string>? ProductIds { get; set; } // Reference product IDs
         public List<string>? TransactionflowIds { get; set; } // Reference transaction flow IDs
         public List<string>? InvoiceIds { get; set; } // Reference invoice IDs
-        public string? CreatedByEmployeeId { get; set; } // Reference to the creator
-        public string? UpdatedByEmployeeId { get; set; } // Reference to the updater
+        public int CreatedBy { get; set; } // Reference to the creator
+        public int UpdatedBy { get; set; } // Reference to the updater
     
 }
 }

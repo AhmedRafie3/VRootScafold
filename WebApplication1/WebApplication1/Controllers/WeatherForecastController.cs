@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
+using MongoDB.Driver;
 using WebApplication1.Models;
+using WebApplication1.Models.Mongo;
 
 namespace WebApplication1.Controllers
 {
@@ -14,11 +16,15 @@ namespace WebApplication1.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
         private readonly vRootDbContext _vRootDbContext;
+        private readonly MongoDbContext _context;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, vRootDbContext vRootDbContext)
+
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, vRootDbContext vRootDbContext, MongoDbContext context)
         {
             _logger = logger;
             _vRootDbContext = vRootDbContext;
+            _context = context;
+
 
         }
 
@@ -36,7 +42,8 @@ namespace WebApplication1.Controllers
         [HttpGet("GetWeatherForecasttttttt")]
         public IEnumerable<WeatherForecast> Getttt()
         {
-            var dd=_vRootDbContext.Branches.ToList();
+            var branches = _context.Branches.Find(_ => true).ToList();
+            var dd =_vRootDbContext.Branches.ToList();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
