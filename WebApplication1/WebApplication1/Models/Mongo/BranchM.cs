@@ -5,11 +5,9 @@ namespace WebApplication1.Models.Mongo
 {
     public class BranchM
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; } // MongoDB uses string or ObjectId for IDs
         public string? Name { get; set; }
-        public string? RCode { get; set; }
+        public string? R_Code { get; set; }
         public string? Phone { get; set; }
         public string? Fax { get; set; }
         public string? Mobile { get; set; }
@@ -45,8 +43,8 @@ namespace WebApplication1.Models.Mongo
         public List<string>? ProductIds { get; set; } // Reference product IDs
         public List<string>? TransactionflowIds { get; set; } // Reference transaction flow IDs
         public List<string>? InvoiceIds { get; set; } // Reference invoice IDs
-        public string? CreatedByEmployeeId { get; set; } // Reference to the creator
-        public string? UpdatedByEmployeeId { get; set; } // Reference to the updater
+        public int CreatedBy { get; set; } // Reference to the creator
+        public int UpdatedBy { get; set; } // Reference to the updater
     
 }
 }
