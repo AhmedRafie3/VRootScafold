@@ -1,7 +1,12 @@
-﻿namespace WebApplication1.Models.Mongo
+﻿using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
+
+namespace WebApplication1.Models.Mongo
 {
     public class InvoiceDetailM
     {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; } = null!; // MongoDB document ID
         public int ProductVarintId { get; set; } // Reference to the product variant
         public int ProductUnitId { get; set; } // Reference to the unit of the product

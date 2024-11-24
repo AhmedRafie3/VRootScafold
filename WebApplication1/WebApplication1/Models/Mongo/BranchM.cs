@@ -1,13 +1,16 @@
 ﻿using MongoDB.Bson.Serialization.Attributes;
 using MongoDB.Bson;
+using System.Text.Json.Serialization;
 
 namespace WebApplication1.Models.Mongo
 {
     public class BranchM
     {
         [BsonId]
-       // [BsonRepresentation(BsonType.ObjectId)]
-        public int Id { get; set; } // MongoDB uses string or ObjectId for IDs
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }= null!;
+
+        // MongoDB uses string or ObjectId for IDs
         public string? Name { get; set; }
         public string? R_Code { get; set; }
         public string? Phone { get; set; }
@@ -41,6 +44,7 @@ namespace WebApplication1.Models.Mongo
         public DateTime? UpdateDate { get; set; }
 
         // Relationships
+        [JsonIgnore]
         public List<EmployeeM>? Employees { get; set; } // Embed employees
         public List<string>? ProductIds { get; set; } // Reference product IDs
         public List<string>? TransactionflowIds { get; set; } // Reference transaction flow IDs

@@ -6,6 +6,7 @@ namespace WebApplication1.Models.Mongo
     public class EmployeeM
     {
         [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; } // MongoDB prefers string or ObjectId for IDs
         public string? FirstName { get; set; }
         public string? LastName { get; set; }

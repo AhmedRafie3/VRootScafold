@@ -1,7 +1,12 @@
-﻿namespace WebApplication1.Models.Mongo
+﻿using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
+
+namespace WebApplication1.Models.Mongo
 {
     public class EmployeeShiftM
     {
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
         public string Id { get; set; } = null!; // MongoDB document ID
         public DateTime StartTime { get; set; }
         public DateTime? EndTime { get; set; }

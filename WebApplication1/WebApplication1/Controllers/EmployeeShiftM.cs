@@ -11,13 +11,13 @@ namespace WebApplication1.Controllers
 
     [Route("api/[controller]")]
     [ApiController]
-    public class PosController : ControllerBase
+    public class EmployeeShiftMController : ControllerBase
     {
-        private readonly IMongoCollection<BuddyM> _branchesCollection;
+        private readonly IMongoCollection<EmployeeShiftM> _branchesCollection;
 
-        public PosController(IMongoDatabase database)
+        public EmployeeShiftMController(IMongoDatabase database)
         {
-            _branchesCollection = database.GetCollection<BuddyM>("BuddyM");
+            _branchesCollection = database.GetCollection<EmployeeShiftM>("EmployeeShiftM");
         }
 
         // 1. Get All Branches
@@ -42,15 +42,13 @@ namespace WebApplication1.Controllers
 
         // 3. Create a New Branch
         [HttpPost]
-        public async Task<IActionResult> CreateBranch([FromBody] BuddyM branch)
+        public async Task<IActionResult> CreateBranch([FromBody] EmployeeShiftM branch)
         {
             if (branch == null)
             {
                 return BadRequest("Branch data is required.");
             }
-            branch.CreateDate = DateTime.UtcNow;
-            branch.IsActive = true;
-            branch.IsDeleted = false;
+          
 
             await _branchesCollection.InsertOneAsync(branch);
             return CreatedAtAction(nameof(GetBranchById), new { id = branch.Id }, branch);
@@ -58,7 +56,7 @@ namespace WebApplication1.Controllers
 
         // 4. Update a Branch
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateBranch(string id, [FromBody] BuddyM updatedBranch)
+        public async Task<IActionResult> UpdateBranch(string id, [FromBody] EmployeeShiftM updatedBranch)
         {
             var branch = await _branchesCollection.Find(b => b.Id == id).FirstOrDefaultAsync();
             if (branch == null)
@@ -67,7 +65,6 @@ namespace WebApplication1.Controllers
             }
 
             updatedBranch.Id = id; // تأكد من استخدام نفس الـ ID
-            updatedBranch.UpdateDate = DateTime.UtcNow;
 
             await _branchesCollection.ReplaceOneAsync(b => b.Id == id, updatedBranch);
             return Ok("Branch updated successfully.");
@@ -83,8 +80,7 @@ namespace WebApplication1.Controllers
                 return NotFound("Branch not found.");
             }
 
-            branch.IsDeleted = true; // تعيين الحذف الناعم
-            branch.UpdateDate = DateTime.UtcNow;
+     
 
             await _branchesCollection.ReplaceOneAsync(b => b.Id == id, branch);
             return Ok("Branch marked as deleted.");
